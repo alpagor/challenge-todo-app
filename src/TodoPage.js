@@ -12,7 +12,7 @@ class TodoPage extends Component {
     }
 
     getAllTodos = () => {
-        axios.get('http://localhost:4000/todos')
+        axios.get('localhost:4000/api/v1/todos')
             .then((response) => {
                 this.setState({listOfTasks: response.data})
             })

@@ -16,7 +16,7 @@ export default class AddProject extends Component {
     e.preventDefault();
 
     axios
-      .post("http://localhost:4000/todos", {
+      .post("http://localhost:4000/api/v1/todos", {
         title: this.state.title,
         body: this.state.body,
       })
