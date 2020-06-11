@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
-import './App.css';
-import { Switch, Route } from 'react-router-dom';
-import TodoPage from './TodoPage'
+import React, { Component } from "react";
+import "./App.css";
+import { Switch, Route } from "react-router-dom";
+import TodoPage from "./pages/TodoPage";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-      <Switch>
-      
-        <Route exact path="/todos" component={TodoPage} />
-
-      </Switch>
+        <Switch>
+          <Route exact path="/todos" component={TodoPage} />
+        </Switch>
       </div>
     );
   }
