@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { TasksConsumer } from './../lib/TasksProvider';
-
+import taskService from "../lib/task-service";
 
 class AddTodo extends Component {
-  state = { title: "", body: "" };
+  state = { title: "", body: "", listOfTasks: [] };
 
   handleChange = (e) => {
     const { name, value } = e.target; //info from the input
@@ -11,13 +10,22 @@ class AddTodo extends Component {
   };
 
   handleSubmit = (e) => {
-    e.preventDefault(); 
-    const {title, body} = this.state
-    this.props.createTodo(title, body);  
+    e.preventDefault();
+    const { title, body } = this.state;
+    const newTask = { title, body };
+
+    taskService.createTodo(newTask).then(() => {
+      const taskList = [...this.state.listOfTasks];
+      // taskList.push(newTask)
+      this.setState({ title: "", body: "" }); //clear the form after info has been sent
+      this.getAllTodos();
+      // Triggers the method to get all projects
+      // which refreshes the ProjectsPage
+    });
   };
 
-  render(){
-        return (
+  render() {
+    return (
       <form onSubmit={this.handleSubmit}>
         <h2>ADD NEW TASK</h2>
         <label>Title</label>
@@ -42,8 +50,6 @@ class AddTodo extends Component {
       </form>
     );
   }
-
 }
 
-
-export default TasksConsumer (AddTodo);
+export default AddTodo;

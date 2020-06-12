@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { TasksProvider } from "./lib/TasksProvider";
+
 
 import { BrowserRouter as Router } from "react-router-dom";
 
@@ -12,9 +12,7 @@ ReactDOM.render(
   // will be passed to Auth.js as props.children
   <React.StrictMode>
     <Router>
-      <TasksProvider>
         <App />
-      </TasksProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

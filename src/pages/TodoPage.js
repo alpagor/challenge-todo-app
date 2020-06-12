@@ -1,34 +1,37 @@
 import React, { Component } from "react";
-import AddTodo from "../components/AddTodo";
-import { TasksConsumer } from "./../lib/TasksProvider";
+import taskService from "../lib/task-service";
+import AddTodo from "./../components/AddTodo"
 
 class TodoPage extends Component {
-  state = { listOfTasks: [] };
+    state = { listOfTasks: [] };
 
-  componentDidMount() {
-    this.props.getAllTodos();
-    console.log(this.props.getAllTodos());
-  }
+    componentDidMount() {
+        taskService
+        .getAllTodos()
+        .then((allTasks) => {
+            //we save the response into the state
+            this.setState({ listOfTasks: allTasks });
+            console.log("ToDo" , allTasks)
+        })
+        .catch((err) => console.log(err));
+    }
 
-  render() {
-    return (
-      <div>
-        <h1>TODOs PAGE</h1>
-        <AddTodo getAllTodos={this.props.getAllTodos} />
-        {this.state.listOfTasks.map((task) => {
-          return (
-            <div key={task._id} className="todos">
-              <h3>{task.title}</h3>
-              <p>{task.body}</p>
-              <button onClick={() => this.handleDelete(task)} type="submit">
-                Remove
-              </button>
-            </div>
-          );
-        })}
-      </div>
-    );
-  }
-}
+    render() {
+        return (
+        <div>
+            <h1>TODOs PAGE</h1>   
+            <AddTodo getAllTodos={this.props.getAllTodos} />
+            {this.state.listOfTasks.map((task) => {
+            return (
+                <div key={task._id} className="todos">
+                <h3>{task.title}</h3>
+                <p>{task.body}</p>
+                </div>
+            );
+            })}
+        </div>
+        );
+    }
+    }
 
-export default TasksConsumer(TodoPage);
+export default TodoPage;
